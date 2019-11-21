@@ -1,0 +1,6 @@
+scrapy
+requests
+scrapy-splash
+lxml
+configparser
+sqlite3
