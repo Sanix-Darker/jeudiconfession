@@ -70,5 +70,4 @@ while True:
 
                     print("\n[+] -------------------------------- ")
             else: print("[+] Fetching...")
-        except Exception as es:
-              print(es)
+        except Exception as es: print(es)
