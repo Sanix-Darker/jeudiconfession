@@ -17,3 +17,4 @@ for row in rows3:
     message += "Comme j'ai eu a le preciser, c'etait juste le test d'un jour,"
     message += "a moins que je ne trouves un serveur viable sur lequel le deployer.\n"
     message += "Vous avez ete ( 64 ) pour ce test, Merci encore."
+    print(message_user(chatid, message))
