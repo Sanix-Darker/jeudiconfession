@@ -6,6 +6,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 
+import time
 import logging
 from datetime import datetime
 import sqlite3
@@ -44,6 +45,8 @@ TOKEN = configParser.get('jcf-config', 'token')
 
 # Lang management
 def get_lang_string_by_code(lang_code, code):
+    if lang_code == None:
+        lang_code = "en"
     with open('lang/'+lang_code+'.json', 'r+', encoding='utf-8') as f:
         lang_string = json.load(f)
         return lang_string[code]
@@ -106,16 +109,18 @@ def start_callback(bot, update):
         cur = conn.cursor()
         cur.execute("SELECT * FROM chatid_table WHERE chatid=\""+str(update.message.chat_id)+"\"")
         rows3 = cur.fetchall()
+        
         if(len(rows3) == 0):
-            conn = sqlite3.connect('./chatid.db')
-            c = conn.cursor()
-            c.execute('INSERT INTO chatid_table VALUES (?,?,?,?)', (str(update.message.chat_id), "", (str(update.message.from_user.first_name) + " " + str(update.message.from_user.last_name)), str(datetime.now()).split('.')[0]))
-            conn.commit()
-            c.close()
-            print("[+] ", str(update.message.from_user.first_name), " added successfully !")
+            time.sleep(2)
+            conn2 = sqlite3.connect('./chatid.db')
+            c2 = conn2.cursor()
+            c2.execute('INSERT INTO chatid_table VALUES (?,?,?,?)', (str(update.message.chat_id), "", (str(update.message.from_user.first_name) + " " + str(update.message.from_user.last_name)), str(datetime.now()).split('.')[0]))
+            conn2.commit()
+            c2.close()
+            printLog("[+] "+ str(update.message.from_user.first_name)+ " added successfully !")
             logger.info("[+] "+ str(update.message.from_user.first_name)+ " added successfully !")
         else:
-            print("[+] ", str(update.message.from_user.first_name), " Allready saved !")
+            printLog("[+] "+ str(update.message.from_user.first_name)+ " Allready saved !")
             logger.warning("[+] "+ str(update.message.from_user.first_name)+ " Allready saved !")
 
 
@@ -125,8 +130,6 @@ start_handler = CommandHandler("start", start_callback)
 
 # The Help function
 def help_callback(bot, update):
-    #global thebot
-    #thebot = bot
     lang_code = update.message.from_user.language_code
 
     print(separator)

@@ -40,39 +40,45 @@ def scrapy_splash_request(to_fetch_url):
 
 
 def run_scrap(count_per_tweet):
-    results = []
-    for hashtag in hash_tag_array:
-        twitter_url = "https://twitter.com/search?q=%23"+hashtag+"&src=typeahead_click&f=live"
-        tree = html.fromstring(scrapy_splash_request(twitter_url))
-        tweets_url = tree.xpath("//a[contains(@class, 'tweet-timestamp')]/@href")
+    try:
+        results = []
+        for hashtag in hash_tag_array:
+            try:
+                twitter_url = "https://twitter.com/search?q=%23"+hashtag+"&src=typeahead_click&f=live"
+                tree = html.fromstring(scrapy_splash_request(twitter_url))
+                tweets_url = tree.xpath("//a[contains(@class, 'tweet-timestamp')]/@href")
 
-        for i, turl in enumerate(tweets_url):
-            url = "https://twitter.com"+turl
-            print("[+] ------------------")
-            print("[+] url: ", url)
-            print("[+] ------------------")
+                for i, turl in enumerate(tweets_url):
+                    try:
+                        url = "https://twitter.com"+turl
+                        print("[+] ------------------")
+                        print("[+] url: ", url)
+                        print("[+] ------------------")
 
-            tree2 = html.fromstring(scrapy_splash_request(url))
-            tweet_content = tree2.xpath("//p[contains(@class, 'TweetTextSize')]//text()")
-            text_content = str(base64.b64encode((' '.join(tweet_content)+"\n\n\nLink: "+url).encode()))
+                        tree2 = html.fromstring(scrapy_splash_request(url))
+                        tweet_content = tree2.xpath("//p[contains(@class, 'TweetTextSize')]//text()")
+                        text_content = str(base64.b64encode((' '.join(tweet_content)+"\n\n\nLink: "+url).encode()))
 
-            results.append({
-                "hashtag":hashtag,
-                "tweet_url":url,
-                "text_content":text_content # astuce lors de l'envoies, send juste avec le .decode()
-            })
+                        results.append({
+                            "hashtag":hashtag,
+                            "tweet_url":url,
+                            "text_content":text_content # astuce lors de l'envoies, send juste avec le .decode()
+                        })
 
-            if (i >= count_per_tweet-1): break
+                        if (i >= count_per_tweet-1): break
+                    except Exception as es : pass
+            except Exception as es : pass
 
-    # print("[+] results: ",json.dumps(results))
-    with open("./last_tweets.json", "w+") as frt:
-        frt.write(json.dumps(results))
-    print("[+] A tour Ended Here")
-    time.sleep(5)
+        # print("[+] results: ",json.dumps(results))
+        with open("./last_tweets.json", "w+") as frt:
+            frt.write(json.dumps(results))
+        print("[+] A tour Ended Here")
+        time.sleep(5)
+    except Exception as es : pass
+
+while True:
+    run_scrap(20)
+    time.sleep(120)
 
 
-# while True:
-#     time.sleep(10)
-#     run_scrap(10)
-
-run_scrap(10)
+# run_scrap(10)

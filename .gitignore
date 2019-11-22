@@ -2,3 +2,6 @@ config.txt
 .history
 .vscode
 logs.log
+*__pycache__
+last_tweets.json
+*.db

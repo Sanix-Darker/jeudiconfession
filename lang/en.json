@@ -1,4 +1,4 @@
 {
-    "WELCOME_MESSAGE":"Welcome to JeudiConfessionBot! \n\nTo start, just hit Start to continously receive tweets from #JeudiConfession Hashtag from Twitter.",
+    "WELCOME_MESSAGE":"Welcome to JeudiConfessionBot! \n\nTo start, just hit Start(1 or 2 times) to continously receive tweets from #JeudiConfession Hashtag from Twitter.",
     "HELP_MESSAGE" : "Hi, here's how to use JeudiConfessionBot :\n'You just need to start the bot, it will do the rest for you', \n\n> /start - For the presentation. \n> /help - To get more explanation of how to use it. \n\nIf you still have a problem, please contact the developer @sanixdarker."
 }
