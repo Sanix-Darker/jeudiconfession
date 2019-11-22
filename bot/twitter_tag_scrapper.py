@@ -70,8 +70,9 @@ def run_scrap(count_per_tweet):
             except Exception as es : pass
 
         # print("[+] results: ",json.dumps(results))
-        with open("./last_tweets.json", "w+") as frt:
-            frt.write(json.dumps(results))
+        if len(results) > 1:# We write in the file only if there is more than one new tweet
+            with open("./last_tweets.json", "w+") as frt:
+                frt.write(json.dumps(results))
         print("[+] A tour Ended Here")
         time.sleep(5)
     except Exception as es : pass
