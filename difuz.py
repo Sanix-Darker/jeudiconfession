@@ -3,7 +3,7 @@ import sqlite3
 
 print("[+] This script will diffuz to all chatid the mesage you want to share !")
 
-conn = sqlite3.connect('./chatid.db')
+conn = sqlite3.connect('./chatid_.db')
 cur = conn.cursor()
 cur.execute("SELECT * FROM chatid_table")
 rows3 = cur.fetchall()

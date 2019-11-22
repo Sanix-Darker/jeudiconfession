@@ -14,7 +14,7 @@ import configparser as ConfigParser
 import json
 import requests
 
-conn = sqlite3.connect('./chatid.db')
+conn = sqlite3.connect('./chatid_.db')
 c = conn.cursor()
 c.execute('create table if not exists chatid_table (chatid string, last_confession string, username string, _date string)')
 conn.commit()
@@ -105,14 +105,14 @@ def start_callback(bot, update):
                             text=get_lang_string_by_code(lang_code, "WELCOME_MESSAGE"))
 
 
-        conn = sqlite3.connect('./chatid.db')
+        conn = sqlite3.connect('./chatid_.db')
         cur = conn.cursor()
         cur.execute("SELECT * FROM chatid_table WHERE chatid=\""+str(update.message.chat_id)+"\"")
         rows3 = cur.fetchall()
         
         if(len(rows3) == 0):
             time.sleep(2)
-            conn2 = sqlite3.connect('./chatid.db')
+            conn2 = sqlite3.connect('./chatid_.db')
             c2 = conn2.cursor()
             c2.execute('INSERT INTO chatid_table VALUES (?,?,?,?)', (str(update.message.chat_id), "", (str(update.message.from_user.first_name) + " " + str(update.message.from_user.last_name)), str(datetime.now()).split('.')[0]))
             conn2.commit()

@@ -14,7 +14,7 @@ while True:
     rand = random.randint(1, 5)
     print ("[+] rand: ", rand)
     time.sleep(rand)
-    conn = sqlite3.connect('./chatid.db')
+    conn = sqlite3.connect('./chatid_.db')
     cur = conn.cursor()
     cur.execute("SELECT * FROM chatid_table")
     rows3 = cur.fetchall()
@@ -32,7 +32,7 @@ while True:
                     print("[+] chatid: ", chatid)
                     print("[+] last_confession: ", last_confession)
                     print("[+] username: ", username)
-                    conn = sqlite3.connect('./chatid.db')
+                    conn = sqlite3.connect('./chatid_.db')
                     c = conn.cursor()
                     for tweet in results_tweets:
                         print("tweet: ", tweet)

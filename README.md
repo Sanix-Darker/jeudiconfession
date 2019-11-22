@@ -37,6 +37,9 @@ python ./bot/job.py
 # Open your third CLI to run the twitter_scarpper_module
 python ./bot/twitter_tag_scrapper.py
 
+
+## Or just hit
+python start_all.py
 ```
 
 ## Author
