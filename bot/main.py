@@ -109,7 +109,7 @@ def start_callback(bot, update):
         cur = conn.cursor()
         cur.execute("SELECT * FROM chatid_table WHERE chatid=\""+str(update.message.chat_id)+"\"")
         rows3 = cur.fetchall()
-        
+
         if(len(rows3) == 0):
             time.sleep(2)
             conn2 = sqlite3.connect('./chatid_.db')

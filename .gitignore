@@ -5,3 +5,6 @@ logs.log
 *__pycache__
 last_tweets.json
 *.db
+nohup.out
+jcf
+.idea
