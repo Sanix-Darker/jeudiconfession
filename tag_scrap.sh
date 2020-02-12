@@ -1,0 +1,1 @@
+python3 ./bot/twitter_tag_scrapper.py
