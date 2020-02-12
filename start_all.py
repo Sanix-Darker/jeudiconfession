@@ -10,17 +10,17 @@ def scrapy_splash_process():
 
 def bot_process():
     print("[+] Starting The main_bot")
-    ss("python ./bot/main.py")
+    ss("python3 ./bot/main.py")
 
 
 def bot_job_process():
     print("[+] Starting The job_bot")
-    ss("python ./bot/job.py")
+    ss("python3 ./bot/job.py")
 
 
 def twitter_parser_process():
     print("[+] Starting The twitter_parser")
-    ss("python ./bot/twitter_tag_scrapper.py")
+    ss("python3 ./bot/twitter_tag_scrapper.py")
 
 
 Thread(target = scrapy_splash_process).start()
