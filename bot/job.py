@@ -5,6 +5,8 @@ import sqlite3
 from main import message_user
 import base64
 
+from os import path as os_path, system as ss
+
 import datetime
 
 print("[+] --------------------------------------")
@@ -12,11 +14,19 @@ print("[+] Jeudiconfession Job started...")
 print("[+] --------------------------------------")
 
 
+# We create the last_tweet file if it doesn't exist 
+if not os_path.exists("./last_tweets.json"):
+    ss("touch ./last_tweets.json")
+    with open("./last_tweets.json", "w") as frt:
+        print("[+] Create the last_tweet json file")
+        frt.write("{}")
+        
 while True:
     time.sleep(10)
     week_day = datetime.datetime.today().weekday()
     if week_day in [2,3,4]:
         time.sleep(100)
+        
         with open("./last_tweets.json") as frt:
             try:
                 results_tweets = json.load(frt)

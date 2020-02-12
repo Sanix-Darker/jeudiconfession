@@ -3,4 +3,4 @@ requests
 scrapy-splash
 lxml
 configparser
-python-telegram-bot
+python-telegram-bot==12.3.0
