@@ -16,7 +16,7 @@ while True:
     time.sleep(10)
     week_day = datetime.datetime.today().weekday()
     if week_day in [2,3,4]:
-        time.sleep(50)
+        time.sleep(100)
         with open("./last_tweets.json") as frt:
             try:
                 results_tweets = json.load(frt)
