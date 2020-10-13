@@ -34,12 +34,14 @@ class Model:
         if self.validate_input(self.json)[0]:
             self.collection.insert(self.json)
         else:
+            print("json: ", self.json)
             print("[+] JSON not valid for save()")
 
     def update(self, param, json):
         if self.validate_input(json)[0]:
             self.collection.update_one(param, {"$set": json}, upsert=True)
         else:
+            print("json: ", self.json)
             print("[+] JSON not valid for update()")
 
     def delete(self, param):

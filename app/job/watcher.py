@@ -17,11 +17,13 @@ def save_confessions():
 
     """
     ts = get_tweets()
+    print("> Fetched : ", len(ts))
 
     for t in ts:
         cf_fetched = list(Cf().find_by({
             "link": t["link"]
         }))
+        print(".", end="")
 
         # we add the tweet if it is not already there
         if len(cf_fetched) == 0:
@@ -62,6 +64,8 @@ def send_confessions():
                 
                 # We build our image and our capption
                 (image, text) = format_text_image(cf)
+                
+                print(ch["chat-id"] + ", ", end="")
 
                 # We send the message here
                 if send_message(ch["chat-id"], text, image):
@@ -70,7 +74,10 @@ def send_confessions():
                     Wm().update({
                         "link": w["link"]
                     }, w)
-                    time.sleep(1)
+                    time.sleep(2)
+                    print("[-] Sent.")
+                else:
+                    print("[-] Not Sent.")
 
 
 while True:

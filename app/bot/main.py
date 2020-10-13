@@ -35,17 +35,20 @@ def start_callback(bot, update):
         if ch[0]["status"] != "ok":
             ch[0]["status"] = "ok"
             message = "Your status have been changed, now you can receive Confesions tweets"
+            Ch().update({
+                "chat-id": str(update.message.chat_id)
+            }, ch[0])
         else:
             message = "You're already set to receive confessions tweets"
     else:
         cch = Ch({
-            "username": update.message.from_user,
+            "username": update.message.from_user.username,
             "chat-id": str(update.message.chat_id),
             "status": "ok",
             "date": str(datetime.datetime.today())
         })
         cch.save()
-        message = "Starting right now, i will send you Tweets with #Jeudiconfession hashtag !"
+        message = "Starting right now, i will send you Tweets with #Jeudiconfession hashtag !\n\nBy @sanixdarker"
     
     bot.send_message(
         chat_id=update.message.chat_id,
@@ -70,7 +73,7 @@ def stop_callback(bot, update):
     if len(ch) > 0:
         if ch[0]["status"] == "ok":
             ch[0]["status"] = "nok"
-            message = "Your status have been changed, now you will never receive again Confesions tweets"
+            message = "Your status have been changed, now you will never receive again Confessions tweets"
             Ch().update({
                 "chat-id": str(update.message.chat_id)
             }, ch[0])
@@ -78,7 +81,7 @@ def stop_callback(bot, update):
             message = "You're already set to not receive confessions tweets"
     else:
         cch = Ch({
-            "username": update.message.from_user,
+            "username": update.message.from_user.username,
             "chat-id": str(update.message.chat_id),
             "status": "nok",
             "date": str(datetime.datetime.today())
@@ -101,12 +104,12 @@ def help_callback(bot, update):
         "Am just a bot that will fetch confessions from twitter and send that to you !\n---\n" + \
         "/start - start the bot/activate the receiving of tweets.\n" + \
         "/stop - stop receiving confessions.\n" + \
-        "/help - help, list of command the bot.\n---\n"
+        "/help - help, list of command the bot.\n---\nBy @sanixdarker"
     )
 
 
 start_handler = CommandHandler("start", start_callback)
-stop_handler = CommandHandler("stop", start_callback)
+stop_handler = CommandHandler("stop", stop_callback)
 help_handler = CommandHandler("help", help_callback)
 
 
