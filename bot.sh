@@ -1,1 +1,1 @@
-python3 ./bot/main.py
+./venv/bin/python -m bot.main

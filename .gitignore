@@ -8,3 +8,5 @@ last_tweets.json
 nohup.out
 jcf
 .idea
+venv
+*.html

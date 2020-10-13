@@ -1,6 +1,15 @@
-scrapy
+# To fetch results and parse results
 requests
-scrapy-splash
-lxml
-configparser
+beautifulsoup4
+
+# to communicate with mongoDB
+pymongo
+# just for validators
+jsonschema
+
+# For the telegram bot
+setuptools
 python-telegram-bot==12.3.0
+
+# To manage configurations
+configparser
