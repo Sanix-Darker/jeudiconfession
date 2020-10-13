@@ -89,4 +89,10 @@ while True:
         time.sleep(7)
     else:
         # we erase all confessions 
-        time.sleep(86400)
+        # we delete all confessions
+        Cf().delete({})
+        # We delete all watchme
+        Wm().delete({})
+
+        # now we wait
+        time.sleep(70000)
