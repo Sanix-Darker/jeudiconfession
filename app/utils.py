@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import datetime
 
 from app.settings import HOST, TOKEN
 from hashlib import md5
@@ -101,6 +102,19 @@ def get_tweets():
         })
     
     return tweets_json
+
+
+def is_good_date():
+    """
+    This is a simple method that will say if we are Wenesday, Thursday or Friday
+    The appropriate time to send confessions to recipients
+
+    """
+    
+    if 2 <= datetime.datetime.today().weekday() <= 4:
+        return True
+    else:
+        return False
 
 
 def get_cf_id(Cf, result):

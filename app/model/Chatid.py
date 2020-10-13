@@ -1,7 +1,7 @@
 from app.model import *
 
 
-class WatchMe(Model.Model):
+class Chatid(Model.Model):
     def __init__(self, json=None):
         super().__init__(json)
         if json is None:
@@ -9,19 +9,15 @@ class WatchMe(Model.Model):
         self.json = json
         
         # We set the collection name
-        self.set_collection("watchme")
+        self.set_collection("chatid")
 
         # We set our custom schema
         self.schema = {
             "type": "object",
-            "required": ["link", "chat-ids"],
+            "required": ["username", "chatid", "date"],
             "properties": {
-                "link": {"type": "string"},
-                "chat-ids": {
-                    "type": ["array", "null"],
-                    "items": {
-                        "type": ["string", "null"],
-                    }
-                }
+                "chatid": {"type": ["string", "null"]},
+                "chatid": {"type": ["string", "null"]},
+                "chatid": {"type": ["string", "null"]},
             }
         }

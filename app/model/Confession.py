@@ -24,10 +24,10 @@ class Confession(Model.Model):
             ],
             "properties": {
                 "link": {"type": "string"},
-                "avatar": ["string", "null"],
+                "avatar": {"type": ["string", "null"]},
                 "author-name": {"type": "string"},
                 "author-link": {"type": "string"},
                 "tweet-text": {"type": "string"},
-                "media": ["string", "null"],
+                "media": {"type": ["string", "null"]},
             }
         }
