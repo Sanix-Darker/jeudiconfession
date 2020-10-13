@@ -1,1 +1,1 @@
-./venv/bin/python -m bot.main
+./venv/bin/python -m app.bot.main
