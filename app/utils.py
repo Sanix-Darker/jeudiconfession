@@ -8,21 +8,38 @@ from hashlib import md5
 
 
 
-def send_message(chat_id: str, text: str):
+def send_message(chat_id: str, text: str, photo: str):
     """
     This method will just send a message to the appropriate client
 
     """
     datas = {
         "chat_id": chat_id,
-        "text": text,
+        "caption": text,
+        "photo": photo,
+        "parse_mode": "HTML",
+        "disable_web_page_preview": False,
     }
     r = requests.post(
-        "https://api.telegram.org/bot" + TOKEN + "/sendMessage", 
+        "https://api.telegram.org/bot" + TOKEN + "/sendPhoto", 
         data=datas
     )
     
     return True if r.status_code == 200 else False
+
+
+def format_text_image(cf):
+    # We build our image and our capption
+    image = cf["avatar"]
+    if (len(cf["media"]) > 5):
+        image = cf["media"]
+
+    text = "<a href='https://twitter.com" + cf["author-link"] + "'>" 
+    text += cf["author-name"] + "</a>:<br>"
+    text += cf["tweet-text"] + "<br>-----<br>"
+    text += "<a href='"+cf["link"]+"'>LINK</a>"
+
+    return image, text
 
 
 def clean_text(strr: str):
@@ -110,7 +127,7 @@ def is_good_date():
     The appropriate time to send confessions to recipients
 
     """
-    
+
     if 2 <= datetime.datetime.today().weekday() <= 4:
         return True
     else:

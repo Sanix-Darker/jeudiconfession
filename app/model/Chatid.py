@@ -14,10 +14,11 @@ class Chatid(Model.Model):
         # We set our custom schema
         self.schema = {
             "type": "object",
-            "required": ["username", "chatid", "date"],
+            "required": ["username", "chat-id", "status", "date"],
             "properties": {
-                "chatid": {"type": ["string", "null"]},
-                "chatid": {"type": ["string", "null"]},
-                "chatid": {"type": ["string", "null"]},
+                "username": {"type": ["string", "null"]},
+                "chat-id": {"type": ["string", "null"]},
+                "status": {"type": ["string", "null"]},
+                "date": {"type": ["string", "null"]},
             }
         }

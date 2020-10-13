@@ -1,13 +1,15 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler
 import json
+import datetime
 
 from app.settings import *
 from app.utils import *
-from app.model import Confession, WatchMe
+from app.model import Confession, WatchMe, Chatid
 
 
 
 Cf = Confession.Confession
+Ch = Chatid.Chatid
 Wm = WatchMe.WatchMe
 
 def presentation():
@@ -24,10 +26,30 @@ def start_callback(bot, update):
 
     # If yes we say him(her) we already know he is interested having confessions
 
+    ch = list(Ch().find_by({
+        "chat-id": str(update.message.chat_id)
+    }))
+
+    message = ""
+    if len(ch) > 0:
+        if ch[0]["status"] != "ok":
+            ch[0]["status"] = "ok"
+            message = "Your status have been changed, now you can receive Confesions tweets"
+        else:
+            message = "You're already set to receive confessions tweets"
+    else:
+        cch = Ch({
+            "username": update.message.from_user,
+            "chat-id": str(update.message.chat_id),
+            "status": "ok",
+            "date": str(datetime.datetime.today())
+        })
+        cch.save()
+        message = "Starting right now, i will send you Tweets with #Jeudiconfession hashtag !"
+    
     bot.send_message(
         chat_id=update.message.chat_id,
-        text="Hello there, \n" + \
-            "Starting right now, i will send you Tweets with #Jeudiconfession hashtag !"
+        text="Hello there, \n" + message        
     )
 
 
@@ -40,11 +62,33 @@ def stop_callback(bot, update):
     # If not we add it with the status nok
 
     # If yes, we just update his(her) status to nok
+    ch = list(Ch().find_by({
+        "chat-id": str(update.message.chat_id)
+    }))
 
+    message = ""
+    if len(ch) > 0:
+        if ch[0]["status"] == "ok":
+            ch[0]["status"] = "nok"
+            message = "Your status have been changed, now you will never receive again Confesions tweets"
+            Ch().update({
+                "chat-id": str(update.message.chat_id)
+            }, ch[0])
+        else:
+            message = "You're already set to not receive confessions tweets"
+    else:
+        cch = Ch({
+            "username": update.message.from_user,
+            "chat-id": str(update.message.chat_id),
+            "status": "nok",
+            "date": str(datetime.datetime.today())
+        })
+        cch.save()
+        message = "Starting right now, i saved your chat-id but i will not send you Tweets with #Jeudiconfession hashtag !"
+    
     bot.send_message(
         chat_id=update.message.chat_id,
-        text="Hello there, \n" + \
-            "Okay..., i will stop send you Tweets with #Jeudiconfession hashtag !"
+        text="Hello there, \n" + message
     )
 
 
