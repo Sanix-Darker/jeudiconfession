@@ -95,4 +95,4 @@ while True:
         Wm().delete({})
 
         # now we wait
-        time.sleep(70000)
+        time.sleep(3600)
