@@ -86,7 +86,7 @@ while True:
         save_confessions()
         time.sleep(3)
         send_confessions()
-        time.sleep(7)
+        time.sleep(10)
     else:
         # we erase all confessions 
         # we delete all confessions
@@ -95,4 +95,4 @@ while True:
         Wm().delete({})
 
         # now we wait
-        time.sleep(3600)
+        time.sleep(360)
