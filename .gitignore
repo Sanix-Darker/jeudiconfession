@@ -10,3 +10,4 @@ jcf
 .idea
 venv
 *.html
+*.json
